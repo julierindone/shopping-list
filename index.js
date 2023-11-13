@@ -6,34 +6,36 @@ const appSettings = {
 }
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-
 const shoppingListInDB = ref(database, "items")
 
-const addBtn = document.getElementById("add-btn")
-const inputValueEl = document.getElementById("input-value")
+const inputFieldEl = document.getElementById("input-field")
+const addBtnEl = document.getElementById("add-btn")
 const shoppingListEl = document.getElementById("shopping-list")
 
+addBtnEl.addEventListener("click", function () {
+  let inputField = inputFieldEl.value
+
+  push(shoppingListInDB, inputField)
+})
+
 onValue(shoppingListInDB, function (snapshot) {
-  let shoppingArray = Object.values(snapshot.val())
+  // saving the shoppingListInDB object as an array:
+  let itemsArray = Object.values(snapshot.val())
   clearList()
 
-  for (let i = 0; i < shoppingArray.length; i++) {
-    addItemToList(shoppingArray[i])
+  for (let i = 0; i < itemsArray.length; i++) {
+    appendItemToShoppingList(itemsArray[i])
   }
 })
 
-addBtn.addEventListener("click", function () {
-  let inputValue = inputValueEl.value
-  push(shoppingListInDB, inputValue)
-})
-
-function addItemToList(addItem) {
-  shoppingListEl.innerHTML += `<li>${addItem}</li>`
+// getting my functions out of the way //
+function appendItemToShoppingList(itemValue) {
+  shoppingListEl.innerHTML += `<li>${itemValue}</li>`
   clearInput()
 }
 
 function clearInput() {
-  inputValueEl.value = null
+  inputFieldEl.value = null
 }
 
 function clearList() {
