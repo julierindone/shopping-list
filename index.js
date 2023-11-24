@@ -13,9 +13,21 @@ const addBtnEl = document.getElementById("add-btn")
 const shoppingListEl = document.getElementById("shopping-list")
 
 addBtnEl.addEventListener("click", function () {
-  let inputField = inputFieldEl.value
+  let inputField = inputFieldEl.value.trim()
 
-  push(shoppingListInDB, inputField)
+  // check for empty value. push item to firebase or display error
+  if (inputField === "") {
+    let message = "Please enter an item."
+    document.getElementById("error-message").innerHTML = message
+  }
+  else {
+    push(shoppingListInDB, inputField)
+  }
+})
+
+// reset error message once focus is back on input box
+inputFieldEl.addEventListener("focus", function () {
+  document.getElementById("error-message").innerHTML = ""
 })
 
 onValue(shoppingListInDB, function (snapshot) {

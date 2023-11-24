@@ -35,6 +35,18 @@ body {
   margin: .5rem 0;
 }
 
+#input-field:focus {
+  outline: 1px solid #9c4c5d65;
+}
+
+#error-message {
+  color: #9c4c5e;
+  font-weight:400;
+  font-size: 1rem;
+  margin-top: -.1rem;
+  margin-bottom: .2rem;;
+}
+
 #add-btn {
   font-family: 'Rubik', sans-serif;
   color: #eef1f3;
