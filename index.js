@@ -19,29 +19,43 @@ addBtnEl.addEventListener("click", function () {
 })
 
 onValue(shoppingListInDB, function (snapshot) {
-  // saving the shoppingListInDB object as an array:
-  let itemsArray = Object.entries(snapshot.val())
-  clearList()
+  // Check to see if there are items in the list.
+  if (!snapshot.exists()) {
+    clearList()
+    let noBorderStyle = "none"
+    shoppingListEl.style.border = noBorderStyle
+    shoppingListEl.innerHTML = `<li class="empty-list">No items here... yet!</li>`
+  }
+  else {
+    // saving the shoppingListInDB object as an array:
+    let itemsArray = Object.entries(snapshot.val())
 
-  for (let i = 0; i < itemsArray.length; i++) {
-    let currentItem = itemsArray[i]
+    // clear list so it can be rebuilt from db
+    clearList()
 
-    appendItemToShoppingList(currentItem)
+    // for each item in the db, call function to append to list in ui
+    for (let i = 0; i < itemsArray.length; i++) {
+      let currentItem = itemsArray[i]
+      appendItemToShoppingList(currentItem)
+    }
   }
 })
 
-// getting my functions out of the way //
 function appendItemToShoppingList(item) {
-  let itemId = item[0]
+  let itemID = item[0]
   let itemValue = item[1]
-    console.log(`current item id is ${itemId}.\ncurrent item value is ${itemValue}`)
-
   let newEl = document.createElement("li")
-  newEl.textContent = `${item}`
-  // newEl.textContent = shoppingListEl.append(newEl)
-shoppingListEl.append(newEl)
+
+  // create a li with the name of the item
+  newEl.textContent = `${itemValue}`
+  shoppingListEl.append(newEl)
 
   clearInput()
+
+  newEl.addEventListener("dblclick", function () {
+    let exactLocationOfItemInDB = ref(database, `items/${itemID}`)
+    remove(exactLocationOfItemInDB)
+  })
 }
 
 function clearInput() {
@@ -51,26 +65,3 @@ function clearInput() {
 function clearList() {
   shoppingListEl.innerHTML = null
 }
-
-
-// // it's going to have to find the id for the value, feed it into "items/{whatever}", and then remove it w the remove function.
-// function removeItem(array) {
-//   console.log(`inside removeitem - ${array.length}`)
-
-
-//   for (let i = 0; i < array.length; i++) {
-
-//     if (array[i] === "toys") {
-
-//       console.log(`${array[i]} - it's a toy... deleting.`)
-//       remove((array[i])[0])
-//     } else {
-//       console.log(`${array[i]} - not a toy`)
-//     }
-//   }
-
-
-  // let id = 
-
-  // let itemToRemove = ref(database, `items/${id}`)
-  // remove(itemToRemove)
