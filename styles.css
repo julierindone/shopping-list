@@ -2,19 +2,18 @@ html,
 body {
   font-family: 'Rubik', sans-serif;
   font-size: 16px;
-  font-weight: 300;
+  color: #432000;
   text-align:center;
   padding: 0;
   margin: 0;
+  user-select: none;
+  background: #eef1f3;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  background: #eef1f3;
   max-width: 320px;
-  border: 3px solid #584b42;
-  border-radius: 7px;
   padding: 40px 20px;
   margin: 2rem auto;
 }
@@ -26,7 +25,7 @@ body {
 
 #input-field {
   font-family: 'Rubik', sans-serif;
-  color: #555;
+  color: #46270ad3;
   background: #dee4ec;
   font-size: 1.1rem;
   text-align: center;
@@ -40,7 +39,6 @@ body {
   font-family: 'Rubik', sans-serif;
   color: #eef1f3;
   background: #9c4c5e;
-  font-family: inherit;
   font-size: 1.1rem;
   border: none;
   border-radius: 7px;
@@ -48,11 +46,15 @@ body {
   margin: 0;
 }
 
+#add-btn:hover {
+  background: #432000;
+  cursor:pointer
+}
+
 #shopping-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  color: #473C35;
   font-size: 1.1rem;
   text-align: center;
   list-style-type: none;
@@ -68,10 +70,16 @@ li {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2)
 }
 
+li:hover {
+  background: #fcedd1;
+  transition-delay: 2ms;
+  cursor: pointer;
+}
+
 .empty-list {
-  color: #444;
   font-size: .95rem;
   border-radius:unset;
   box-shadow: unset;
   background: unset;
+  margin-top:.5rem;
 }

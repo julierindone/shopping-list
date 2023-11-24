@@ -22,8 +22,6 @@ onValue(shoppingListInDB, function (snapshot) {
   // Check to see if there are items in the list.
   if (!snapshot.exists()) {
     clearList()
-    let noBorderStyle = "none"
-    shoppingListEl.style.border = noBorderStyle
     shoppingListEl.innerHTML = `<li class="empty-list">No items here... yet!</li>`
   }
   else {
